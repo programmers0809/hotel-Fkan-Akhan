@@ -121,7 +121,7 @@
 			                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 			                    <i class="fa fa-bars"></i>
 			                </button>
-			                <a class="navbar-brand" href="{% url "home_page" %}">list<span>race</span></a>
+			                <a class="navbar-brand" href="{% url "home_page" %}">list <span>race</span></a>
 
 			            </div><!--/.navbar-header-->
 			            <!-- End Header Navigation -->
@@ -167,21 +167,57 @@
 							</div>
 						</div>
 						<div class="single-welcome-hero-form">
-							<h3>location</h3>
-							<form action="{% url "home_page" %}">
-								<input type="text" placeholder="Ex: london, newyork, rome" />
+							<h3>Location</h3>
+							<form action="{% url 'home_page' %}">
+								<input type="text" id="locationInput" placeholder="Ex: London, New York, Rome" />
 							</form>
 							<div class="welcome-hero-form-icon">
-								<i class="flaticon-gps-fixed-indicator"></i>
+								<i class="flaticon-gps-fixed-indicator" onclick="getLocation()"></i>
 							</div>
 						</div>
-					</div>
-					<div class="welcome-hero-serch">
-						<button class="welcome-hero-btn" onclick="window.location.href='#'">
-							 search  <i data-feather="search"></i> 
-						</button>
-					</div>
-				</div>
+						<div class="welcome-hero-serch">
+							<button class="welcome-hero-btn" onclick="window.location.href='#'">
+								Search <i data-feather="search"></i> 
+							</button>
+						</div>
+						
+						<script>
+							// Geolocation API function
+							function getLocation() {
+								if (navigator.geolocation) {
+									navigator.geolocation.getCurrentPosition(showPosition, showError);
+								} else {
+									alert("Geolocation is not supported by this browser.");
+								}
+							}
+						
+							function showPosition(position) {
+								const latitude = position.coords.latitude;
+								const longitude = position.coords.longitude;
+								// Here, we set the coordinates in the input field
+								document.getElementById("locationInput").value = `Lat: ${latitude}, Lon: ${longitude}`;
+							}
+						
+							function showError(error) {
+								let message = "Unable to retrieve location";
+								switch (error.code) {
+									case error.PERMISSION_DENIED:
+										message = "User denied the request for Geolocation.";
+										break;
+									case error.POSITION_UNAVAILABLE:
+										message = "Location information is unavailable.";
+										break;
+									case error.TIMEOUT:
+										message = "The request to get user location timed out.";
+										break;
+									case error.UNKNOWN_ERROR:
+										message = "An unknown error occurred.";
+										break;
+								}
+								alert(message);
+							}
+						</script>
+						
 			</div>
 
 		</section><!--/.welcome-hero-->
@@ -398,216 +434,42 @@
 		<!--reviews start -->
 		<section id="reviews" class="reviews">
 			<div class="section-header">
-				<h2>clients reviews</h2>
-				<p>What our client say about us</p>
+				<h2>Clients Reviews</h2>
+				<p>What our clients say about us</p>
 			</div><!--/.section-header-->
 			<div class="reviews-content">
 				<div class="testimonial-carousel">
-				    <div class="single-testimonial-box">
+					{% for testimonial in testimonials %}
+					<div class="single-testimonial-box">
 						<div class="testimonial-description">
 							<div class="testimonial-info">
 								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c1.png' %}" alt="clients">
+									<img src="{{ testimonial.image.url }}" alt="clients">
 								</div><!--/.testimonial-img-->
 								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
+									<h2>{{ testimonial.client_name }}</h2>
+									<h4>{{ testimonial.location }}</h4>
 									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
 									</div>
 								</div><!--/.testimonial-person-->
 							</div><!--/.testimonial-info-->
 							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
+								<p>{{ testimonial.comment }}</p>
 							</div><!--/.testimonial-comment-->
 						</div><!--/.testimonial-description-->
 					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c2.png' %}" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>monirul islam</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c3.png' %}" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Shohrab Hossain</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c4.png' %}" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c1.png' %}" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c2.png' %}" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>monirul islam</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c3.png' %}" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Shohrab Hossain</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
-				    <div class="single-testimonial-box">
-						<div class="testimonial-description">
-							<div class="testimonial-info">
-								<div class="testimonial-img">
-									<img src="{% static 'images/clients/c4.png' %}" alt="clients">
-								</div><!--/.testimonial-img-->
-								<div class="testimonial-person">
-									<h2>Tom Leakar</h2>
-									<h4>london, UK</h4>
-									<div class="testimonial-person-star">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div><!--/.testimonial-person-->
-							</div><!--/.testimonial-info-->
-							<div class="testimonial-comment">
-								<p>
-									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
-								</p>
-							</div><!--/.testimonial-comment-->
-						</div><!--/.testimonial-description-->
-					</div><!--/.single-testimonial-box-->
+					{% endfor %}
 				</div>
 			</div>
-
 		</section><!--/.reviews-->
-		<!--reviews end -->
+		<style>#reviews .testimonial-img img {
+			width: 100px; /* Set the desired width */
+			height: 100px; /* Set the desired height */
+			object-fit: cover; /* Ensures the image covers the space without distortion */
+			border-radius: 50%; /* Optional: makes the image circular */
+			border: 2px solid #ccc; /* Optional: adds a border around the image */
+		}
+		</style>
 
 		<!-- statistics strat -->
 		<section id="statistics"  class="statistics">
@@ -652,61 +514,41 @@
 		<!-- statistics end -->
 
 		<!--blog start -->
-		<section id="blog" class="blog" >
+		<section id="blog" class="blog">
 			<div class="container">
 				<div class="section-header">
-					<h2>news and articles</h2>
-					<p>Always upto date with our latest News and Articles </p>
+					<h2>News and Articles</h2>
+					<p>Always up to date with our latest News and Articles</p>
 				</div><!--/.section-header-->
 				<div class="blog-content">
 					<div class="row">
+						{% for item in explore_items|slice:":3" %}
 						<div class="col-md-4 col-sm-6">
-							<div class="single-blog-item">
-								<div class="single-blog-item-img">
-									<img src="{% static 'images/blog/b1.jpg' %}" alt="blog image">
-								</div>
-								<div class="single-blog-item-txt">
-									<h2><a href="#">How to find your Desired Place more quickly</a></h2>
-									<h4>posted <span>by</span> <a href="#">admin</a> march 2018</h4>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur de adipisicing elit, sed do eiusmod tempore incididunt ut labore et dolore magna.
-									</p>
-								</div>
+						  <div class="single-blog-item">
+							<div class="single-blog-item-img">
+							  {% if item.image %}
+								<img src="{{ item.image.url }}" alt="{{ item.title }} image">
+							  {% else %}
+								<img src="default-image.jpg" alt="default blog image">
+							  {% endif %}
 							</div>
-						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-blog-item">
-								<div class="single-blog-item-img">
-									<img src="{% static 'images/blog/b2.jpg' %}" alt="blog image">
-								</div>
-								<div class="single-blog-item-txt">
-									<h2><a href="#">How to find your Desired Place more quickly</a></h2>
-									<h4>posted <span>by</span> <a href="#">admin</a> march 2018</h4>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur de adipisicing elit, sed do eiusmod tempore incididunt ut labore et dolore magna.
-									</p>
-								</div>
+							<div class="single-blog-item-txt">
+							  <h2><a href="#">{{ item.title }}</a></h2>
+							  <h4>posted <span>by</span> <a href="#">{{ item.author }}</a> {{ item.posted_at|date:"F Y" }}</h4>
+							  <p>{{ item.content|truncatewords:20 }}</p>
 							</div>
+						  </div>
 						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-blog-item">
-								<div class="single-blog-item-img">
-									<img src="{% static 'images/blog/b3.jpg' %}" alt="blog image">
-								</div>
-								<div class="single-blog-item-txt">
-									<h2><a href="#">How to find your Desired Place more quickly</a></h2>
-									<h4>posted <span>by</span> <a href="#">admin</a> march 2018</h4>
-									<p>
-										Lorem ipsum dolor sit amet, consectetur de adipisicing elit, sed do eiusmod tempore incididunt ut labore et dolore magna.
-									</p>
-								</div>
-							</div>
-						</div>
+					  {% empty %}
+						<p>No blog posts available.</p>
+					  {% endfor %}
+					  
 					</div>
 				</div>
+				
 			</div><!--/.container-->
-			
 		</section><!--/.blog-->
+		
 		<!--blog end -->
 
 		<!--subscription strat -->
