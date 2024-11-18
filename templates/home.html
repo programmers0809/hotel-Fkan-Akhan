@@ -82,12 +82,17 @@
 									<option value="bdt">BDT</option>
 								</select>
 							</li>
+							<!-- Qidiruv formasi -->
 							<li class="select-opt">
-								<a href="#"><span class="lnr lnr-magnifier"></span></a>
+								<form method="GET" action="{% url 'search' %}">
+									<input type="text" name="query" placeholder="Search...">
+									<button type="submit"><span class="lnr lnr-magnifier"></span></button>
+								</form>
 							</li>
 						</ul>
 					</div>
 				</li>
+				
 				<li class="head-responsive-right pull-right">
 					<div class="header-top-right">
 						<ul>

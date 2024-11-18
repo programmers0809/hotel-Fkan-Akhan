@@ -1,0 +1,26 @@
+
+{% block content %}
+    <h2>Search Results</h2>
+    <form method="GET" action="{% url 'search' %}">
+        {{ form.as_p }}  <!-- Formani chiqarish -->
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="search-results">
+        {% if items %}
+            <ul>
+                {% for item in items %}
+                    <li>
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.description }}</p>
+                        <p>Price: {{ item.price_from }} - {{ item.price_to }}</p>
+                        <p>Rating: {{ item.rating }}</p>
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+{% endblock %}
