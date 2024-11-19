@@ -68,3 +68,32 @@ class Testimonial(models.Model):
 #         return self.name
 
 
+
+from django.db import models
+
+class ContactInfo(models.Model):
+    phone_number = models.CharField(max_length=20, help_text="Enter phone number")
+    facebook_url = models.URLField(blank=True, null=True, help_text="Facebook profile URL")
+    twitter_url = models.URLField(blank=True, null=True, help_text="Twitter profile URL")
+    linkedin_url = models.URLField(blank=True, null=True, help_text="LinkedIn profile URL")
+    google_plus_url = models.URLField(blank=True, null=True, help_text="Google Plus profile URL")
+
+    def __str__(self):
+        return f"Contact Info - {self.phone_number}"
+
+    class Meta:
+        verbose_name = "Contact Information"
+        verbose_name_plural = "Contact Information"
+
+
+class Topic(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='topics/', blank=True, null=True)  # Rasm maydoni
+    listings_count = models.IntegerField(default=0)  # Listings soni
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Topic'
+        verbose_name_plural = 'Topics'

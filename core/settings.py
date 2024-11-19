@@ -1,4 +1,3 @@
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -14,14 +13,15 @@ SECRET_KEY = 'django-insecure-e(ylu1(-s(46ya_*(jp3r*gw=(az&n%*fe4bks8!og7v2ds&=v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []  # Add your domain or IP in production
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    'jazzmin',  # Jazzmin for Django Admin UI styling
     
+    # Default Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # Custom app
     'hotel',
 ]
 
@@ -47,7 +48,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates'],  # Templates directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,8 +69,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # SQLite used for simplicity
+        'NAME': BASE_DIR / 'db.sqlite3',  # Path to SQLite DB
     }
 }
 
@@ -96,7 +97,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('en', ('English')),
+    ('bn', ('Bangla')),
+    ('ab', ('Arabic')),
+]
+
+LANGUAGE_CODE = 'en'  # Default language
 
 TIME_ZONE = 'Asia/Tashkent'
 
@@ -110,14 +117,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
-
+# Additional static file directories
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
 
-
+# Media files (uploads by users)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

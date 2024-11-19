@@ -24,3 +24,92 @@
         {% endif %}
     </div>
 {% endblock %}
+<style>
+    /* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Container for search form */
+form {
+    margin: 20px auto;
+    padding: 10px;
+    max-width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+/* Form fields styling */
+form p {
+    margin: 0 0 15px;
+}
+
+form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for search results */
+.search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.search-results li {
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.search-results h3 {
+    margin: 0 0 10px;
+    color: #007bff;
+}
+
+.search-results p {
+    margin: 5px 0;
+}
+
+.search-results img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* No results message styling */
+.search-results p {
+    text-align: center;
+    color: #666;
+}
+
+/* Responsive design tweaks */
+@media (max-width: 600px) {
+    form, .search-results ul {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .search-results img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+</style>

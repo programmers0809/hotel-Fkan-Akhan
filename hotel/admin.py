@@ -15,3 +15,17 @@ class TestimonialAdmin(admin.ModelAdmin):
 
 
 
+from .models import ContactInfo
+
+@admin.register(ContactInfo)
+class ContactInfoAdmin(admin.ModelAdmin):
+    list_display = ('phone_number', 'facebook_url', 'twitter_url', 'linkedin_url', 'google_plus_url')
+    search_fields = ('phone_number',)
+
+
+from .models import Topic
+
+@admin.register(Topic)
+class TopicAdmin(admin.ModelAdmin):
+    list_display = ('name', 'listings_count', 'image')
+    search_fields = ('name',)

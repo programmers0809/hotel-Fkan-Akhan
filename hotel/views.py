@@ -2,18 +2,23 @@ from django.shortcuts import render
 
 from django.views import View
 
-from .models import ExploreItem, Testimonial
-from .forms import SearchForm
+from .models import ExploreItem, Testimonial,ContactInfo,Topic
+from .forms import SearchForm,TestimonialForm
 
 class HomeView(View):
     def get(self, request):
         explore_items = ExploreItem.objects.all()
         testimonials = Testimonial.objects.all()
+        contact_info = ContactInfo.objects.first()      
+        topics = Topic.objects.all()  # Barcha kategoriya ma'lumotlarini olish
         
         
         context = {
             'explore_items': explore_items,
             'testimonials': testimonials,
+            'contact_info':contact_info,
+            'topics' :topics
+
        
         }
         return render(request, 'home.html', context=context)
@@ -41,3 +46,27 @@ def search_view(request):
             items = items.filter(price_to__lte=price_to)  # Narxning maksimal qiymati
 
     return render(request, 'search_results.html', {'form': form, 'items': items})
+
+
+from django.shortcuts import render, redirect
+from .models import Testimonial
+from .forms import TestimonialForm
+
+def comment_view(request):
+    # Foydalanuvchi izohlarini olish
+    testimonials = Testimonial.objects.all()
+
+    # Forma yaratish
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('comment_view')  # Muvaffaqiyatli qo'shishdan keyin qayta yo'naltirish
+    else:
+        form = TestimonialForm()
+
+    context = {
+        'testimonials': testimonials,
+        'form': form
+    }
+    return render(request, 'comments.html', context)
